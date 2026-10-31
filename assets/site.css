@@ -52,18 +52,27 @@ a { color: inherit; }
 .pagehead p { margin: 0; max-width: 38em; color: var(--muted); font-size: 18px; }
 
 /* ---------- landing page ---------- */
-.hero { background-color: var(--indigo); background-image: url('letter-cover.jpg'); background-size: auto 190%; background-position: center top; background-repeat: no-repeat; color: #F4F6FB; padding: 18px 16px 54px; position: relative; }
-.hero::before { content: ''; position: absolute; inset: 0; background: rgba(27, 46, 88, 0.80); }
-.hero .in { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; gap: 28px 44px; align-items: center; position: relative; z-index: 1; }
+.hero { background-color: var(--indigo); color: #F4F6FB; padding: 18px 16px 54px; position: relative; }
+.hero .in { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; gap: 28px 44px; align-items: stretch; position: relative; z-index: 1; }
+.hero-right { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.hero-portraits { display: flex; gap: 24px; justify-content: center; }
+.hero-oval { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.hero-oval img { width: 150px; height: 190px; object-fit: cover; border-radius: 50% / 45%; border: 3px solid rgba(255,255,255,0.35); box-shadow: 0 4px 18px rgba(0,0,0,0.45); }
+.hero-oval figcaption { font-size: 14px; color: #C5CFE4; text-align: center; }
 .hero h1 { font-family: var(--serif); font-weight: 900; font-size: clamp(40px, 7.5vw, 76px); line-height: 1.02; margin: 18px 0 16px; letter-spacing: -.015em; }
 .hero p { margin: 0 0 8px; max-width: 26em; font-size: 20px; color: #C5CFE4; }
-.gens { display: flex; flex-direction: column; gap: 14px; padding-top: 18px; }
-.gen { display: grid; grid-template-columns: 90px 1fr; gap: 10px; align-items: center; }
-.gen .lb { font-size: 14px; color: #C5CFE4; line-height: 1.25; }
-.dots { display: flex; flex-wrap: wrap; gap: 6px; }
-.dots i { width: 13px; height: 13px; border-radius: 50%; background: var(--dc); opacity: 0; animation: pop .45s ease-out forwards; animation-delay: calc(var(--n) * 22ms + var(--g) * 260ms); }
-.g1 { --dc: #E8B23C; } .g2 { --dc: #4FC3CF; } .g3 { --dc: #7FA6F0; } .g4 { --dc: #9BCB63; }
-@keyframes pop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
+/* פירמידת דורות */
+.gens { display: flex; flex-direction: column; gap: 0; padding-top: 18px; box-sizing: border-box; align-items: center; justify-content: space-between; height: 100%; }
+.pyr-row { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pyr-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.pyr-dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; opacity: 0; animation: pop .4s ease-out forwards; background: var(--pdc); flex-shrink: 0; }
+.pyr-lbl { font-size: 14px; color: #9BACC8; letter-spacing: .02em; }
+.pyr-more { font-size: 12px; color: #9BACC8; align-self: center; padding-inline-start: 2px; }
+.pyr-g1 { --pdc: #E8B23C; } /* זהב — אברהם וסלמה */
+.pyr-g2 { --pdc: #4FC3CF; } /* טורקיז — ילדים */
+.pyr-g3 { --pdc: #7FA6F0; } /* כחול — נכדים */
+.pyr-g4 { --pdc: #9BCB63; } /* ירוק — נינים */
+@keyframes pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .dots i { animation: none; opacity: 1; } html { scroll-behavior: auto; } }
 
 .tiles { max-width: 980px; margin: 0 auto; padding: 34px 16px 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -221,6 +230,8 @@ details.br[open] summary::before { content: "▾"; }
   .nav a { padding: 8px 9px 7px; font-size: 15px; }
   .hero { padding-bottom: 38px; }
   .hero .in { grid-template-columns: 1fr; }
+  .hero-oval img { width: 120px; height: 150px; }
+  .gens { height: auto; padding-top: 16px; }
   .hero p { font-size: 18px; }
   .tiles { grid-template-columns: 1fr; padding-top: 24px; }
   .legend { margin-inline-start: 0; flex-basis: 100%; }
