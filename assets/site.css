@@ -255,7 +255,9 @@ details.br[open] summary::before { content: "▾"; }
   .nav a { padding: 8px 9px 7px; font-size: 15px; }
   .hero { padding-bottom: 38px; }
   .hero .in { grid-template-columns: 1fr; }
-  .hero-oval img { width: 120px; height: 150px; }
+  .hero-portraits { gap: 14px; margin-top: 16px; }
+  .hero-oval { width: 100px; height: 126px; }
+  .hero-oval img { width: 100%; height: 100%; }
   .gens { height: auto; padding-top: 16px; }
   .hero p { font-size: 18px; }
   .tiles { grid-template-columns: 1fr; padding-top: 24px; }
