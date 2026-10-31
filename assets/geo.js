@@ -14,7 +14,7 @@
 
   function initMap() {
     /* start zoomed on the Yemen village area */
-    var map = L.map('geo-map', { attributionControl: true }).setView([13.65, 43.80], 9);
+    var map = L.map('geo-map', { attributionControl: true }).setView([13.65, 43.80], 8);
 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a>',
