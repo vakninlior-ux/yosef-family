@@ -85,7 +85,8 @@ a { color: inherit; }
 .t-timeline { --tc: var(--c-birth); } .t-tree { --tc: var(--c-grand); } .t-photos { --tc: var(--c-great); }
 .t-stories { --tc: var(--c-conference); } .t-docs { --tc: var(--c-milestone); } .t-meet { --tc: var(--indigo); }
 .t-geo { --tc: #C0682A; }
-.t-memorial { --tc: #5A3D7A; }
+.t-memorial { --tc: #5A3D7A; position: relative; overflow: hidden; }
+.t-memorial::before { content: ''; position: absolute; top: 18px; left: -32px; width: 108px; height: 26px; background: #2D2D3A; transform: rotate(-45deg); }
 @media (prefers-color-scheme: dark) { .t-meet { --tc: #6C7FAE; } .t-geo { --tc: #E08850; } .t-memorial { --tc: #9B7AC8; } }
 
 /* ---------- memorial / נזכור page ---------- */
