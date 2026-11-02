@@ -59,7 +59,7 @@ a { color: inherit; }
 .hero-oval { margin: 0; width: 150px; height: 190px; border-radius: 50% / 45%; overflow: hidden; border: 3px solid rgba(255,255,255,0.35); box-shadow: 0 4px 18px rgba(0,0,0,0.45); flex-shrink: 0; }
 .hero-oval img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero h1 { font-family: var(--serif); font-weight: 900; font-size: clamp(40px, 7.5vw, 76px); line-height: 1.02; margin: 18px 0 16px; letter-spacing: -.015em; }
-.hero-sub { font-size: 0.38em; font-weight: 500; color: #C5CFE4; letter-spacing: 0; vertical-align: middle; }
+.hero-sub { font-family: var(--sans); font-size: 20px; font-weight: 400; color: #C5CFE4; letter-spacing: 0; vertical-align: baseline; }
 .hero p { margin: 0 0 8px; max-width: 26em; font-size: 20px; color: #C5CFE4; }
 /* פירמידת דורות */
 .gens { display: flex; flex-direction: column; gap: 0; padding-top: 18px; box-sizing: border-box; align-items: center; justify-content: space-between; height: 100%; }
