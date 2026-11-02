@@ -84,7 +84,32 @@ a { color: inherit; }
 .t-timeline { --tc: var(--c-birth); } .t-tree { --tc: var(--c-grand); } .t-photos { --tc: var(--c-great); }
 .t-stories { --tc: var(--c-conference); } .t-docs { --tc: var(--c-milestone); } .t-meet { --tc: var(--indigo); }
 .t-geo { --tc: #C0682A; }
-@media (prefers-color-scheme: dark) { .t-meet { --tc: #6C7FAE; } .t-geo { --tc: #E08850; } }
+.t-memorial { --tc: #5A3D7A; }
+@media (prefers-color-scheme: dark) { .t-meet { --tc: #6C7FAE; } .t-geo { --tc: #E08850; } .t-memorial { --tc: #9B7AC8; } }
+
+/* ---------- memorial / נזכור page ---------- */
+.memwrap { max-width: 860px; margin: 0 auto; padding: 4px 16px 48px; }
+.mem-header { margin-bottom: 24px; }
+.mem-title { font-family: var(--serif); font-weight: 700; font-size: clamp(22px,4vw,30px); margin: 0 0 6px; color: var(--ink); }
+.mem-subtitle { margin: 0; color: var(--muted); font-size: 15px; }
+.mem-loading { color: var(--muted); font-size: 16px; }
+.mem-table-wrap { overflow-x: auto; }
+.mem-table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.mem-table th { background: #5A3D7A; color: #fff; font-family: var(--serif); font-weight: 700; font-size: 15px; padding: 10px 14px; text-align: right; white-space: nowrap; }
+@media (prefers-color-scheme: dark) { .mem-table th { background: #3D2A5A; } }
+.mem-table td { padding: 11px 14px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.mem-table tr:last-child td { border-bottom: none; }
+.mem-table tbody tr:nth-child(even) { background: var(--paper); }
+.mem-table tbody tr:nth-child(odd) { background: var(--card); }
+.mem-table tbody tr:hover { background: var(--hl); }
+.mem-name { font-weight: 600; color: var(--c-death); white-space: nowrap; }
+.mem-day, .mem-hdate, .mem-greg { white-space: nowrap; color: var(--ink); }
+.mem-para { color: var(--muted); font-size: 15px; }
+.mem-note { margin-top: 20px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+@media (max-width: 600px) {
+  .mem-table th, .mem-table td { padding: 8px 10px; font-size: 14px; }
+  .mem-para { font-size: 13px; }
+}
 
 /* ---------- geo page ---------- */
 .geowrap { max-width: 980px; margin: 0 auto; padding: 4px 16px 40px; }
