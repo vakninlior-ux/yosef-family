@@ -364,7 +364,6 @@
       group: 'צילומים',
       folder: 'צילומים',
       items: [
-        '.1995. גבריאל יוסף. אליזבת. ברק יוסף. שושנה זכאי. חנניה זכאי. אורן זכאי. מיכאל יוסף. יפה. בית מלון. בית מלון שרה בטבריה.jpg',
         '1988 .שלום יוסף. כפיר יוסף. נריה יוסף. אביאל יוסף. יהל יוסף.jpg',
         '1989. אלונה זכאי. הדס זכאי. מעוז דוד. עופרי יוסף. חסר מידע.שנות ה 80.jpg',
         '1999. אברהם יוסף. גלעד יוסף.jpg',
@@ -429,7 +428,7 @@
       allPics.push({ folder: g.folder, filename: filename, url: url });
       var caption = esc(imgCaption(filename));
       picsHtml += '<button type="button" class="photo-thumb" data-idx="' + idx + '" title="' + caption + '" aria-label="' + caption + '">';
-      picsHtml += '<img src="' + url + '" alt="' + caption + '" loading="lazy">';
+      picsHtml += '<img src="' + url + '" alt="' + caption + '" loading="lazy" onerror="this.closest(\'.photo-thumb\').hidden=true">';
       picsHtml += '</button>';
     });
     picsHtml += '</div></details>';
