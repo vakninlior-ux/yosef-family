@@ -32,7 +32,7 @@
       if (g.wed) WEDS.push({ y: g.wed, t: 'milestone', tx: g.name + (g.spouse ? ' ו' + g.spouse : '') + ' מתחתנים', note: (g.wedText && /\D/.test(g.wedText) ? 'תאריך: ' + g.wedText + ' · ' : '') + 'ענף ' + branchLabel(b) });
       if (g.year && !ALREADY[g.name + '|' + g.year]) {
         /* the card is about the grandchild: the year is his or her birth year, and the spouse is listed only as the spouse */
-        (g3[g.year] = g3[g.year] || []).push({ nm: g.name, pr: 'ענף ' + branchLabel(b), sp: g.spouse ? 'בן/בת זוג: ' + g.spouse : '', dead: g.dead });
+        (g3[g.year] = g3[g.year] || []).push({ nm: g.name, pr: 'ענף ' + branchLabel(b), sp: g.spouse ? (g.spouseGender === 'M' ? 'בן הזוג' : g.spouseGender === 'F' ? 'בת הזוג' : 'בן/בת זוג') + ': ' + g.spouse : '', dead: g.dead });
       }
       g.kids.forEach(function (k) {
         if (!k.year) return;
