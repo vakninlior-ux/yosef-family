@@ -32,7 +32,7 @@
       if (g.wed) WEDS.push({ y: g.wed, t: 'milestone', tx: g.name + (g.spouse ? ' ו' + g.spouse : '') + ' מתחתנים', note: (g.wedText && /\D/.test(g.wedText) ? 'תאריך: ' + g.wedText + ' · ' : '') + 'ענף ' + branchLabel(b) });
       if (g.year && !ALREADY[g.name + '|' + g.year]) {
         /* the card is about the grandchild: the year is his or her birth year, and the spouse is listed only as the spouse */
-        (g3[g.year] = g3[g.year] || []).push({ nm: g.name, pr: 'ענף ' + branchLabel(b), sp: g.spouse ? (g.spouseGender === 'M' ? 'בן הזוג' : g.spouseGender === 'F' ? 'בת הזוג' : 'בן/בת זוג') + ': ' + g.spouse : '', dead: g.dead });
+        (g3[g.year] = g3[g.year] || []).push({ nm: g.name, pr: 'ענף ' + branchLabel(b), sp: g.spouse ? (g.spouseGender === 'M' ? 'בן הזוג' : g.spouseGender === 'F' ? 'בת הזוג' : 'בן/בת זוג') + ': ' + g.spouse : '', dead: g.dead, tl: g.tl || 999 });
       }
       g.kids.forEach(function (k) {
         if (!k.year) return;
@@ -43,9 +43,9 @@
   });
   WEDS.forEach(function (w) { if (!w.note) delete w.note; });
   var EV = BASE.concat(WEDS);
-  Object.keys(g3).forEach(function (y) { EV.push({ y: +y, t: 'grand', tx: 'נכדים', chips: g3[y] }); });
+  Object.keys(g3).forEach(function (y) { g3[y].sort(function (a, b) { return a.tl - b.tl; }); EV.push({ y: +y, t: 'grand', tx: 'נכדים', chips: g3[y], tl: g3[y][0].tl }); });
   Object.keys(g4).forEach(function (y) { EV.push({ y: +y, t: 'great', tx: 'נינים', chips: g4[y] }); });
-  EV = EV.map(function (e, i) { e.o = i; return e; }).sort(function (a, b) { return a.y - b.y || a.o - b.o; });
+  EV = EV.map(function (e, i) { e.o = i; return e; }).sort(function (a, b) { return a.y - b.y || (a.tl || 999) - (b.tl || 999) || a.o - b.o; });
 
   var COUNT = {};
   Object.keys(TYPES).forEach(function (k) { COUNT[k] = 0; });
