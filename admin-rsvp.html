@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>לוח בקרה · כנס יוסף 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .admin-wrap { max-width: 820px; margin: 0 auto; padding: 8px 16px 48px; }
+  #admin-status { font-size: 0.8rem; color: var(--muted); margin: 0 0 12px; }
+  #admin-total { background: var(--card); border: 1px solid var(--rule); border-inline-start: 5px solid var(--c-conference); border-radius: 3px; padding: 10px 16px; margin: 0 0 20px; font-weight: 600; font-size: 15px; }
+  .ab-row { background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 12px 16px; margin-bottom: 10px; transition: background-color .4s; }
+  .ab-row.ab-flash { background-color: #ede9fe; }
+  .ab-name { font-family: var(--serif); font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--c-conference); }
+  .ab-bar-w { height: 6px; background: var(--rule); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+  .ab-bar { height: 100%; background: #22c55e; border-radius: 999px; transition: width .5s ease; }
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  .ab-summary { display: flex; gap: 10px; align-items: center; padding: 2px 0; font-size: 0.82rem; }
+  .ab-summary::after { content: '▸ פתח'; color: var(--muted); font-size: 0.7rem; margin-inline-start: auto; }
+  details[open] .ab-summary::after { content: '▾ סגור'; }
+  .ab-y { color: #16a34a; font-weight: 700; }
+  .ab-n { color: var(--c-death); font-weight: 700; }
+  .ab-p { color: var(--muted); }
+  .ab-people { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 5px 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .ab-person { display: flex; align-items: center; gap: 5px; font-size: 0.8rem; }
+  .ab-ps { font-size: 0.75rem; font-weight: 700; width: 14px; text-align: center; flex-shrink: 0; }
+  .ab-ps.yes  { color: #16a34a; }
+  .ab-ps.no   { color: var(--c-death); }
+  .ab-ps.pend { color: var(--muted); }
+</style>
+<script>document.documentElement.classList.add('locked')</script>
+</head>
+<body>
+<a class="skip" href="#main">דלגו לתוכן</a>
+<header class="site"><div class="in"><a class="brand" href="index.html">משפחת יוסף</a><nav class="nav" aria-label="ניווט ראשי"><a href="index.html">ראשי</a> <a href="timeline.html">ציר זמן</a> <a href="tree.html">עץ משפחה</a> <a href="photos.html">מסמכים, תמונות וסרטונים</a> <a href="stories.html">עדויות</a> <a href="geo.html">המסע מתימן</a> <a href="memorial.html">נזכור</a> <a href="meetings.html" aria-current="true">כנסים</a></nav></div></header>
+<div class="pagehead">
+  <h1>לוח בקרה מנהל · כנס יוסף השני 2026</h1>
+  <p>אישורי הגעה לפי ענף — מתעדכן בזמן אמת</p>
+</div>
+<main id="main">
+  <div class="admin-wrap">
+    <p id="admin-status">מתחבר...</p>
+    <p id="admin-total"></p>
+    <div id="admin-branches"></div>
+  </div>
+</main>
+<footer class="sitefoot"><div class="in"><span>משפחת יוסף</span> <span id="built"></span> <button type="button" class="lockbtn" id="lock">נעילת האתר במכשיר זה</button></div></footer>
+<noscript><div class="gate"><div class="box"><h1>משפחת יוסף</h1><p>האתר צריך JavaScript כדי להיפתח.</p></div></div></noscript>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>window.PAGE_SCRIPTS=['assets/firebase-config.js','assets/common.js','assets/admin-rsvp-init.js'];</script>
+<script src="assets/data.js"></script>
+<script src="assets/gate.js"></script>
+</body>
+</html>
