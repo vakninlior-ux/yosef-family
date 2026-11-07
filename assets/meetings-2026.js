@@ -15,10 +15,15 @@
   /* ── Firebase ── */
   var db = window.db || null;
   var unsubscribeBranch = null;
+  var unsubscribeList = null;
   function branchDocId(idx) { return 'br_' + idx; }
 
   function detachBranch() {
     if (unsubscribeBranch) { unsubscribeBranch(); unsubscribeBranch = null; }
+  }
+
+  function detachList() {
+    if (unsubscribeList) { unsubscribeList(); unsubscribeList = null; }
   }
 
   function saveToFirestore(idx, br, brKeys) {
@@ -78,27 +83,46 @@
   /* ── Branch list view ── */
   function showList() {
     detachBranch();
-    root.innerHTML = '';
-    var grid = document.createElement('div'); grid.className = 'branch-grid';
-    F.tree.forEach(function (br, idx) {
-      if (skipBranch(br)) return;
-      var keys = branchAllKeys(br);
-      var c = countFor(keys);
-      var a = document.createElement('a');
-      a.href = '#' + idx;
-      a.className = 'branch-card';
-      var title = document.createElement('strong'); title.textContent = branchTitle(br);
-      var sum   = document.createElement('span');   sum.className = 'bc-sum';
-      sum.textContent = c.yes + ' מגיעים · ' + c.no + ' לא מגיעים · ' + c.pending + ' ממתינים';
-      a.appendChild(title); a.appendChild(sum);
-      grid.appendChild(a);
-    });
-    root.appendChild(grid);
-    updateTotalEl();
+
+    function renderList() {
+      root.innerHTML = '';
+      var grid = document.createElement('div'); grid.className = 'branch-grid';
+      F.tree.forEach(function (br, idx) {
+        if (skipBranch(br)) return;
+        var keys = branchAllKeys(br);
+        var c = countFor(keys);
+        var a = document.createElement('a');
+        a.href = '#' + idx;
+        a.className = 'branch-card';
+        var title = document.createElement('strong'); title.textContent = branchTitle(br);
+        var sum   = document.createElement('span');   sum.className = 'bc-sum';
+        sum.textContent = c.yes + ' מגיעים · ' + c.no + ' לא מגיעים · ' + c.pending + ' ממתינים';
+        a.appendChild(title); a.appendChild(sum);
+        grid.appendChild(a);
+      });
+      root.appendChild(grid);
+      updateTotalEl();
+    }
+
+    if (db && !unsubscribeList) {
+      unsubscribeList = db.collection('rsvp').onSnapshot(function (snapshot) {
+        snapshot.forEach(function (doc) {
+          var data = doc.data();
+          Object.keys(data).forEach(function (k) {
+            if (k.charAt(0) !== '_') st[k] = data[k];
+          });
+        });
+        saveLocal();
+        renderList();
+      }, function () { renderList(); });
+    } else {
+      renderList();
+    }
   }
 
   /* ── Branch RSVP view ── */
   function showBranch(idx) {
+    detachList();
     detachBranch();
     var br = F.tree[idx];
     if (!br) { showList(); return; }
