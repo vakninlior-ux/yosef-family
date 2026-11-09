@@ -8,6 +8,14 @@
 <title>עדויות · משפחת יוסף</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+.story-tabs{display:flex;gap:0;border-bottom:2px solid var(--rule,#d0cfc8);margin-bottom:2rem;overflow-x:auto;scrollbar-width:none}
+.story-tabs::-webkit-scrollbar{display:none}
+.stab{flex:none;padding:.6rem 1.4rem;font:600 .95rem/1 'Assistant',sans-serif;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;color:var(--muted,#777);transition:color .15s,border-color .15s;white-space:nowrap}
+.stab:hover{color:var(--fg,#222)}
+.stab.active,.stab[aria-selected=true]{color:var(--teal,#1a7f6e);border-bottom-color:var(--teal,#1a7f6e)}
+.story-panel[hidden]{display:none}
+</style>
 <script>document.documentElement.classList.add('locked')</script>
 </head>
 <body>
@@ -16,6 +24,13 @@
 <div class="pagehead"><h1>עדויות</h1><p>סיפורים וזכרונות בכתב מבני המשפחה.</p></div>
 <main id="main" class="storieswrap">
 
+<div class="story-tabs" role="tablist" aria-label="עדויות">
+  <button class="stab active" role="tab" aria-selected="true"  aria-controls="stab-1" id="stbtn-1">מור יוסף</button>
+  <button class="stab"        role="tab" aria-selected="false" aria-controls="stab-2" id="stbtn-2">מיכאל יוסף א׳ — מסע ושורשים</button>
+  <button class="stab"        role="tab" aria-selected="false" aria-controls="stab-3" id="stbtn-3">מיכאל יוסף ב׳ — שורשים</button>
+</div>
+
+<div id="stab-1" role="tabpanel" aria-labelledby="stbtn-1" class="story-panel">
 <article class="testimony">
   <div class="testimony-body">
 
@@ -63,8 +78,9 @@
     </div><!-- /story-bio -->
   </div><!-- /testimony-body -->
 </article>
+</div><!-- /stab-1 -->
 
-
+<div id="stab-2" role="tabpanel" aria-labelledby="stbtn-2" class="story-panel" hidden>
 <article class="testimony">
   <div class="testimony-body">
 
@@ -101,7 +117,9 @@
     </div><!-- /story-bio -->
   </div><!-- /testimony-body -->
 </article>
+</div><!-- /stab-2 -->
 
+<div id="stab-3" role="tabpanel" aria-labelledby="stbtn-3" class="story-panel" hidden>
 <article class="testimony">
   <div class="testimony-body">
 
@@ -134,10 +152,28 @@
     </div><!-- /story-bio -->
   </div><!-- /testimony-body -->
 </article>
+</div><!-- /stab-3 -->
 
 </main>
 <footer class="sitefoot"><div class="in"><span>משפחת יוסף</span> <span id="built"></span> <button type="button" class="lockbtn" id="lock">נעילת האתר במכשיר זה</button></div></footer>
 <noscript><div class="gate"><div class="box"><h1>משפחת יוסף</h1><p>האתר צריך JavaScript כדי להיפתח.</p></div></div></noscript>
+<script>
+(function(){
+  var btns = document.querySelectorAll('.stab');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-selected','false');
+        document.getElementById(b.getAttribute('aria-controls')).hidden = true;
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
+    });
+  });
+})();
+</script>
 <script>window.PAGE_SCRIPTS=['assets/common.js'];</script>
 <script src="assets/data.js"></script>
 <script src="assets/gate.js"></script>
