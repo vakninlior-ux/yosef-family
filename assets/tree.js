@@ -87,6 +87,7 @@
   var GP_FAM = [
     {
       label: 'הורי אברהם',
+      sibsLabel: 'אברהם, אחים ואחיות',
       couple: ['סלם בן יוסף', 'מרים בת כליף כהן'],
       coupleGender: ['M', 'F'],
       sibs: [
@@ -100,6 +101,7 @@
     },
     {
       label: 'הורי סלמה',
+      sibsLabel: 'סלמה, אחים ואחיות',
       couple: ['יוסף חסן', 'מרים (רחל) כהן'],
       coupleGender: ['M', 'F'],
       sibs: [
@@ -113,11 +115,21 @@
     }
   ];
 
-  function makeGpFamLi(fam) {
+  function makeGpFam(fam) {
+    var col = document.createElement('div');
+    col.className = 'gp-fam';
+
+    /* parents label + couple */
+    var lbl = document.createElement('div');
+    lbl.className = 'gp-label'; lbl.textContent = fam.label;
+    col.appendChild(lbl);
     var coupleNd = node(-1, [
       pbox(fam.couple[0], '', { gender: fam.coupleGender[0] }),
-      pbox(fam.couple[1], '', { sp: true, gender: fam.coupleGender[1] })
+      pbox(fam.couple[1], '', { gender: fam.coupleGender[1] })
     ]);
+    col.appendChild(coupleNd);
+
+    /* siblings — separate header with its own toggle */
     var sibUl = document.createElement('ul');
     sibUl.className = 'tr gp-sibs gp-closed';
     fam.sibs.forEach(function (sib) {
@@ -133,33 +145,48 @@
       btn.textContent = open ? '−' : '+' + fam.sibs.length;
       btn.setAttribute('aria-expanded', String(open));
     }
-    btn.addEventListener('click', function () { open = !open; refresh(); });
+    btn.addEventListener('click', function () { open = !open; refresh(); requestAnimationFrame(posGpConn); });
     refresh();
-    coupleNd.appendChild(btn);
-    var famLi = document.createElement('li');
-    var lbl = document.createElement('div'); lbl.className = 'gp-label'; lbl.textContent = fam.label;
-    famLi.appendChild(lbl);
-    famLi.appendChild(coupleNd);
-    famLi.appendChild(sibUl);
-    return famLi;
+    var sibsHd = document.createElement('div');
+    sibsHd.className = 'gp-sibs-hd';
+    var sibsLbl = document.createElement('div');
+    sibsLbl.className = 'gp-label'; sibsLbl.textContent = fam.sibsLabel;
+    sibsHd.appendChild(sibsLbl);
+    sibsHd.appendChild(btn);
+    col.appendChild(sibsHd);
+    col.appendChild(sibUl);
+    return col;
   }
 
-  var gpAndRootUl = document.createElement('ul');
-  gpAndRootUl.className = 'tr';
-  gpAndRootUl.appendChild(makeGpFamLi(GP_FAM[0])); /* הורי אברהם */
-  gpAndRootUl.appendChild(rootLi);                  /* אברהם × סלמה + כל הצאצאים */
-  gpAndRootUl.appendChild(makeGpFamLi(GP_FAM[1])); /* הורי סלמה */
+  var gpSec = document.createElement('div');
+  gpSec.id = 'gp-sec';
+  GP_FAM.forEach(function (fam) { gpSec.appendChild(makeGpFam(fam)); });
+  var gpConn = document.createElement('div');
+  gpConn.className = 'gp-conn';
+  gpSec.appendChild(gpConn);
+  box.insertBefore(gpSec, tr);
 
-  var outerLi = document.createElement('li');
-  outerLi.className = 'gp-outer';
-  outerLi.appendChild(gpAndRootUl);
-  tr.appendChild(outerLi);
+  rootLi.classList.add('gp-connected');
+  tr.appendChild(rootLi);
+
+  /* stretch gp-sec to full tree width; center connector under founding couple */
+  function posGpConn() {
+    var w = tr.offsetWidth;
+    if (!w) return;
+    gpSec.style.minWidth = w + 'px';
+    gpConn.style.left = (w / 2) + 'px';
+  }
+  requestAnimationFrame(function () { requestAnimationFrame(posGpConn); });
+  window.addEventListener('resize', posGpConn);
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () { requestAnimationFrame(posGpConn); }).observe(tr);
+  }
   /* ── end grandparent generation ── */
 
   function setAll(open) { lis.forEach(function (li) { if (li === rootLi) return; li.classList.toggle('collapsed', !open); setTg(li); }); }
   function center(el) { if (el && el.scrollIntoView && box.offsetParent !== null) el.scrollIntoView({ inline: 'center', block: 'nearest' }); }
   var zoom = 1;
-  function applyZoom() { box.style.zoom = zoom; }
+  function applyZoom() { box.style.zoom = zoom; requestAnimationFrame(posGpConn); }
   document.getElementById('z-out').addEventListener('click', function () { zoom = Math.max(0.3, +(zoom - 0.1).toFixed(1)); applyZoom(); });
   document.getElementById('z-in').addEventListener('click', function () { zoom = Math.min(2.5, +(zoom + 0.1).toFixed(1)); applyZoom(); });
 
