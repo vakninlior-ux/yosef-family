@@ -82,77 +82,78 @@
     return li;
   });
   var rootLi = item(node(0, rootBoxes), kidsOfRoot, TREE.length, true);
-  tr.appendChild(rootLi);
 
   /* ── grandparent generation (tree view only, hardcoded) ── */
-  (function () {
-    var GP_FAM = [
-      {
-        label: 'הורי אברהם',
-        couple: ['סלם בן יוסף', 'מרים בת כליף כהן'],
-        coupleGender: ['M', 'F'],
-        sibs: [
-          { name: 'זוהרה יוסף', gender: 'F' },
-          { name: 'חממה סלם', gender: 'F' },
-          { name: 'יחיא יוסף', gender: 'M' },
-          { name: 'מנחם יוסף', gender: 'M' },
-          { name: 'יוסף יוסף', gender: 'M' },
-          { name: 'סעידה ניסים', gender: 'F' }
-        ]
-      },
-      {
-        label: 'הורי סלמה',
-        couple: ['יוסף חסן', 'מרים (רחל) כהן'],
-        coupleGender: ['M', 'F'],
-        sibs: [
-          { name: 'שמעה', gender: 'F' },
-          { name: 'לאה שרעבי', gender: 'F' },
-          { name: 'שם לא ידוע', gender: 'F', x: true, extra: 'נס ציונה' },
-          { name: 'שם לא ידוע', gender: 'F', x: true, extra: 'גדרה' },
-          { name: 'רחל (ימן) בת סעיד כהן', gender: 'F' },
-          { name: 'חסן', gender: 'M' }
-        ]
-      }
-    ];
-    var sec = document.createElement('div');
-    sec.id = 'gp-sec';
-    GP_FAM.forEach(function (fam) {
-      var col = document.createElement('div');
-      col.className = 'gp-fam';
-      var lbl = document.createElement('div');
-      lbl.className = 'gp-label';
-      lbl.textContent = fam.label;
-      col.appendChild(lbl);
-      var coupleNd = node(-1, [
-        pbox(fam.couple[0], '', { gender: fam.coupleGender[0] }),
-        pbox(fam.couple[1], '', { sp: true, gender: fam.coupleGender[1] })
-      ]);
-      col.appendChild(coupleNd);
-      var sibUl = document.createElement('ul');
-      sibUl.className = 'tr gp-sibs';
-      sibUl.hidden = true;
-      fam.sibs.forEach(function (sib) {
-        var li = document.createElement('li');
-        li.appendChild(node(-1, [pbox(sib.name, '', { gender: sib.gender, x: sib.x, extra: sib.extra || '' })]));
-        sibUl.appendChild(li);
-      });
-      var open = false;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'tg gp-tg';
-      btn.setAttribute('aria-label', 'אחים ואחיות');
-      function makeRefresh(b, u, f) {
-        return function () { u.hidden = !open; b.textContent = open ? '−' : '+' + f.sibs.length; b.setAttribute('aria-expanded', String(open)); };
-      }
-      var refresh = makeRefresh(btn, sibUl, fam);
-      btn.addEventListener('click', function () { open = !open; refresh(); });
-      refresh();
-      col.appendChild(btn);
-      col.appendChild(sibUl);
-      sec.appendChild(col);
+  var GP_FAM = [
+    {
+      label: 'הורי אברהם',
+      couple: ['סלם בן יוסף', 'מרים בת כליף כהן'],
+      coupleGender: ['M', 'F'],
+      sibs: [
+        { name: 'זוהרה יוסף', gender: 'F' },
+        { name: 'חממה סלם', gender: 'F' },
+        { name: 'יחיא יוסף', gender: 'M' },
+        { name: 'מנחם יוסף', gender: 'M' },
+        { name: 'יוסף יוסף', gender: 'M' },
+        { name: 'סעידה ניסים', gender: 'F' }
+      ]
+    },
+    {
+      label: 'הורי סלמה',
+      couple: ['יוסף חסן', 'מרים (רחל) כהן'],
+      coupleGender: ['M', 'F'],
+      sibs: [
+        { name: 'שמעה', gender: 'F' },
+        { name: 'לאה שרעבי', gender: 'F' },
+        { name: 'שם לא ידוע', gender: 'F', x: true, extra: 'נס ציונה' },
+        { name: 'שם לא ידוע', gender: 'F', x: true, extra: 'גדרה' },
+        { name: 'רחל (ימן) בת סעיד כהן', gender: 'F' },
+        { name: 'חסן', gender: 'M' }
+      ]
+    }
+  ];
+
+  function makeGpFamLi(fam) {
+    var coupleNd = node(-1, [
+      pbox(fam.couple[0], '', { gender: fam.coupleGender[0] }),
+      pbox(fam.couple[1], '', { sp: true, gender: fam.coupleGender[1] })
+    ]);
+    var sibUl = document.createElement('ul');
+    sibUl.className = 'tr gp-sibs gp-closed';
+    fam.sibs.forEach(function (sib) {
+      var sibLi = document.createElement('li');
+      sibLi.appendChild(node(-1, [pbox(sib.name, '', { gender: sib.gender, x: sib.x, extra: sib.extra || '' })]));
+      sibUl.appendChild(sibLi);
     });
-    box.insertBefore(sec, tr);
-  })();
+    var open = false;
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'tg'; btn.setAttribute('aria-label', 'אחים ואחיות');
+    function refresh() {
+      sibUl.classList.toggle('gp-closed', !open);
+      btn.textContent = open ? '−' : '+' + fam.sibs.length;
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    btn.addEventListener('click', function () { open = !open; refresh(); });
+    refresh();
+    coupleNd.appendChild(btn);
+    var famLi = document.createElement('li');
+    var lbl = document.createElement('div'); lbl.className = 'gp-label'; lbl.textContent = fam.label;
+    famLi.appendChild(lbl);
+    famLi.appendChild(coupleNd);
+    famLi.appendChild(sibUl);
+    return famLi;
+  }
+
+  var gpAndRootUl = document.createElement('ul');
+  gpAndRootUl.className = 'tr';
+  gpAndRootUl.appendChild(makeGpFamLi(GP_FAM[0])); /* הורי אברהם */
+  gpAndRootUl.appendChild(rootLi);                  /* אברהם × סלמה + כל הצאצאים */
+  gpAndRootUl.appendChild(makeGpFamLi(GP_FAM[1])); /* הורי סלמה */
+
+  var outerLi = document.createElement('li');
+  outerLi.className = 'gp-outer';
+  outerLi.appendChild(gpAndRootUl);
+  tr.appendChild(outerLi);
   /* ── end grandparent generation ── */
 
   function setAll(open) { lis.forEach(function (li) { if (li === rootLi) return; li.classList.toggle('collapsed', !open); setTg(li); }); }
