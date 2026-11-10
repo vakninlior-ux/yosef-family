@@ -24,7 +24,7 @@
 
   var PHOTOS = [
     {
-      group: 'צילומים',
+      group: 'תמונות',
       folder: 'צילומים',
       items: [
         '1995. גבריאל יוסף. אליזבת. ברק יוסף. שושנה זכאי. חנניה זכאי. אורן זכאי. מיכאל יוסף. יפה. בית מלון. בית מלון שרה בטבריה.jpg'
@@ -368,7 +368,7 @@
   /* ---- צילומים (family photos) ---- */
   var PHOTOS_PICS = [
     {
-      group: 'צילומים',
+      group: 'תמונות',
       folder: 'צילומים',
       items: [
         '1971. אסתר וקנין. פורטרט..jpg',
@@ -484,7 +484,7 @@
     });
     picsHtml += '</div></details>';
   });
-  panelPhotos.innerHTML = '<div class="photo-search-wrap"><input type="search" id="pics-q" placeholder="חיפוש בצילומים…" autocomplete="off" dir="rtl"><span id="pics-q-count" class="photo-q-count"></span></div>' + picsHtml;
+  panelPhotos.innerHTML = '<div class="photo-search-wrap"><input type="search" id="pics-q" placeholder="חיפוש בתמונות…" autocomplete="off" dir="rtl"><span id="pics-q-count" class="photo-q-count"></span></div>' + picsHtml;
 
   document.getElementById('pics-q').addEventListener('input', function () {
     var q = this.value.replace(/["״׳']/g, '').trim().toLowerCase();
