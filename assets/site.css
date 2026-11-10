@@ -358,7 +358,15 @@ details.br[open] summary::before { content: "▾"; }
 .pb.female .n { color: var(--c-female); }
 .br .male  { color: var(--c-male); }
 .br .female { color: var(--c-female); }
+.nd[data-g="-1"] { --gc: var(--c-conference); }
 .nd[data-g="0"] { --gc: var(--c-milestone); } .nd[data-g="1"] { --gc: var(--c-birth); } .nd[data-g="2"] { --gc: var(--c-grand); } .nd[data-g="3"] { --gc: var(--c-great); }
+#gp-sec { display:flex; justify-content:center; gap:60px; flex-wrap:wrap; margin-bottom:28px; padding-bottom:24px; border-bottom:2px dashed var(--line); }
+.gp-fam { display:flex; flex-direction:column; align-items:center; }
+.gp-label { font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.05em; text-transform:uppercase; margin-bottom:8px; }
+.gp-tg { position:relative !important; bottom:auto !important; left:auto !important; transform:none !important; display:block; margin:4px auto 0; }
+.gp-sibs { padding-top:0 !important; margin-top:16px !important; }
+.gp-sibs > li { padding-top:14px !important; }
+@media(max-width:640px) { #gp-sec { gap:24px; } }
 .tg { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); min-width: 26px; height: 24px; padding: 0 7px; border: 2px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); font: inherit; font-size: 13px; font-weight: 700; line-height: 1; cursor: pointer; z-index: 2; }
 .tg:hover { border-color: var(--ink); }
 @media (max-width: 640px) { .treebox { padding: 20px 12px 48px; } }
