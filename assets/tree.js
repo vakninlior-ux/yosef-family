@@ -6,7 +6,7 @@
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function spLabel(g) { return g === 'F' ? 'בת הזוג' : g === 'M' ? 'בן הזוג' : 'בן/בת זוג'; }
-  function zl(s) { return esc(s).split('ז&quot;ל').join('<span class="dec">ז״ל</span>'); }
+  function zl(s) { return esc(s).replace(/([^\s])ז&quot;ל/g, '$1 ז&quot;ל').split('ז&quot;ל').join('<span class="dec">ז״ל</span>'); }
   function norm(s) { return s.replace(/["״׳']/g, '').replace(/\s+/g, ' ').trim(); }
   var DEAD = /ז"ל/;
 

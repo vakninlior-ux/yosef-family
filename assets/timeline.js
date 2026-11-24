@@ -45,6 +45,7 @@
   var EV = BASE.concat(WEDS);
   Object.keys(g3).forEach(function (y) { g3[y].sort(function (a, b) { return a.tl - b.tl; }); EV.push({ y: +y, t: 'grand', tx: 'נכדים', chips: g3[y], tl: g3[y][0].tl }); });
   Object.keys(g4).forEach(function (y) { EV.push({ y: +y, t: 'great', tx: 'נינים', chips: g4[y] }); });
+  EV.forEach(function (e) { if (e.t === 'conference' && e.y === 2026) e.tl = 1001; });
   EV = EV.map(function (e, i) { e.o = i; return e; }).sort(function (a, b) { return a.y - b.y || (a.tl || 999) - (b.tl || 999) || a.o - b.o; });
 
   var COUNT = {};
